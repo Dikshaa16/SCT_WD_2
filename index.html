@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gradient-to-br from-slate-800 via-indigo-900 to-violet-900">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elegant Tailwind Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    input[type="text"]::-webkit-inner-spin-button,
+    input[type="text"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .btn:active {
+      transform: scale(0.96);
+      transition: transform 0.1s ease-in-out;
+    }
+    .btn:focus-visible {
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="h-full flex items-center justify-center p-4 sm:p-6 md:p-10">
+  <div id="calculator" class="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-xl w-full max-w-sm sm:max-w-md p-6 sm:p-8 flex flex-col" role="application" aria-label="Calculator">
+    <input id="display" type="text" class="w-full text-right text-4xl sm:text-5xl font-mono p-5 rounded-xl border border-white/20 bg-white/10 text-white shadow-inner focus:outline-none focus:ring-4 focus:ring-indigo-500 transition-colors duration-300 select-text" aria-live="polite" aria-atomic="true" aria-label="Calculator display" readonly value="0" spellcheck="false" />
+
+    <div class="grid grid-cols-4 gap-4 sm:gap-5 mt-6 sm:mt-8" role="group" aria-label="Calculator buttons">
+      <!-- Row 1 -->
+      <button class="btn bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl py-4 text-xl shadow focus:ring-4 focus:ring-red-300" data-action="clear" aria-label="Clear">C</button>
+      <button class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded-xl py-4 text-xl shadow focus:ring-4 focus:ring-yellow-300" data-action="backspace" aria-label="Backspace"><i class="fas fa-backspace"></i></button>
+      <button class="btn bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-xl py-4 text-xl shadow focus:ring-4 focus:ring-violet-400" data-value="%" aria-label="Modulo">%</button>
+      <button class="btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl py-4 text-2xl shadow focus:ring-4 focus:ring-indigo-400" data-value="/" aria-label="Divide">&divide;</button>
+
+      <!-- Row 2 -->
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="7">7</button>
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="8">8</button>
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="9">9</button>
+      <button class="btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl py-4 text-2xl shadow focus:ring-4 focus:ring-indigo-400" data-value="*">&times;</button>
+
+      <!-- Row 3 -->
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="4">4</button>
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="5">5</button>
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="6">6</button>
+      <button class="btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl py-4 text-2xl shadow focus:ring-4 focus:ring-indigo-400" data-value="-">&minus;</button>
+
+      <!-- Row 4 -->
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="1">1</button>
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="2">2</button>
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="3">3</button>
+      <button class="btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl py-4 text-2xl shadow focus:ring-4 focus:ring-indigo-400" data-value="+">+</button>
+
+      <!-- Row 5 -->
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl col-span-2 shadow-sm focus:ring-4 focus:ring-indigo-400" data-value="0">0</button>
+      <button class="btn bg-slate-100 hover:bg-slate-200 text-gray-900 font-semibold rounded-xl py-4 text-xl shadow-sm focus:ring-4 focus:ring-indigo-400" data-value=".">.</button>
+      <button class="btn bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl py-4 text-2xl shadow focus:ring-4 focus:ring-emerald-400" data-action="equals">=</button>
+    </div>
+
+    
+  </div>
+
+  <script>
+    (() => {
+      const display = document.getElementById("display");
+      const buttons = document.querySelectorAll("#calculator .btn");
+      let currentInput = "0";
+      let lastInputIsOperator = false;
+      const operators = ["+", "-", "*", "/", "%"];
+
+      function updateDisplay() {
+        display.value = currentInput;
+      }
+
+      function clearAll() {
+        currentInput = "0";
+        lastInputIsOperator = false;
+        updateDisplay();
+      }
+
+      function backspace() {
+        if (currentInput.length === 1 || currentInput === "Error") {
+          currentInput = "0";
+          lastInputIsOperator = false;
+        } else {
+          currentInput = currentInput.slice(0, -1);
+          lastInputIsOperator = operators.includes(currentInput[currentInput.length - 1]);
+        }
+        updateDisplay();
+      }
+
+      function appendValue(value) {
+        if (currentInput === "Error") currentInput = "0";
+        if (operators.includes(value)) {
+          if (lastInputIsOperator) {
+            currentInput = currentInput.slice(0, -1) + value;
+          } else {
+            currentInput += value;
+          }
+          lastInputIsOperator = true;
+        } else if (value === ".") {
+          let lastOperatorIndex = -1;
+          for (let i = currentInput.length - 1; i >= 0; i--) {
+            if (operators.includes(currentInput[i])) {
+              lastOperatorIndex = i;
+              break;
+            }
+          }
+          const lastNumber = currentInput.slice(lastOperatorIndex + 1);
+          if (!lastNumber.includes(".")) {
+            currentInput += value;
+            lastInputIsOperator = false;
+          }
+        } else {
+          currentInput = currentInput === "0" ? value : currentInput + value;
+          lastInputIsOperator = false;
+        }
+        updateDisplay();
+      }
+
+      function evaluateExpression() {
+        try {
+          let expression = currentInput.replace(/%/g, "%");
+          if (!/^[0-9+\-*/%.]+$/.test(expression)) throw new Error("Invalid");
+          if (operators.includes(expression[expression.length - 1])) {
+            expression = expression.slice(0, -1);
+          }
+          const result = Function(`"use strict";return (${expression})`)();
+          if (!isFinite(result)) throw new Error("Div/0");
+          currentInput = (typeof result === "number" && !Number.isInteger(result)) ? parseFloat(result.toFixed(8)).toString() : result.toString();
+          lastInputIsOperator = false;
+          updateDisplay();
+        } catch {
+          currentInput = "Error";
+          lastInputIsOperator = false;
+          updateDisplay();
+        }
+      }
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const action = btn.getAttribute("data-action");
+          const value = btn.getAttribute("data-value");
+          if (action === "clear") clearAll();
+          else if (action === "backspace") backspace();
+          else if (action === "equals") evaluateExpression();
+          else if (value !== null) appendValue(value);
+        });
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if ((e.key >= "0" && e.key <= "9") || operators.includes(e.key) || e.key === ".") {
+          e.preventDefault();
+          appendValue(e.key);
+        } else if (e.key === "Enter" || e.key === "=") {
+          e.preventDefault();
+          evaluateExpression();
+        } else if (e.key === "Backspace") {
+          e.preventDefault();
+          backspace();
+        } else if (e.key.toLowerCase() === "c") {
+          e.preventDefault();
+          clearAll();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
